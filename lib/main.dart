@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
           48,
           82,
         ),
-        scaffoldBackgroundColor: const Color.fromARGB(
+        scaffoldBackgroundColor: const Color.fromRGBO(
           249,
           249,
           249,
