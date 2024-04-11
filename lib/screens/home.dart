@@ -1,9 +1,13 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_print
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_print, depend_on_referenced_packages
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:uiler/Widget/brand_button.dart';
+import 'package:uiler/Widget/product_card.dart';
 import 'package:uiler/data.dart';
 import 'package:uiler/models/brand.dart';
+import 'package:uiler/models/product.dart';
+import 'package:water_drop_nav_bar/water_drop_nav_bar.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -12,6 +16,35 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _buildUI(context),
+      bottomNavigationBar: _bottomNavigationBar(context),
+    );
+  }
+
+  Widget _bottomNavigationBar(BuildContext context) {
+    return WaterDropNavBar(
+      backgroundColor: Colors.white,
+      bottomPadding: MediaQuery.sizeOf(context).height * 0.01,
+      waterDropColor: Theme.of(context).colorScheme.primary,
+      barItems: [
+        BarItem(
+          filledIcon: Icons.home,
+          outlinedIcon: Icons.home_outlined,
+        ),
+        BarItem(
+          filledIcon: Icons.shop,
+          outlinedIcon: Icons.shop_outlined,
+        ),
+        BarItem(
+          filledIcon: Icons.notifications,
+          outlinedIcon: Icons.notifications_outlined,
+        ),
+        BarItem(
+          filledIcon: Icons.person,
+          outlinedIcon: Icons.person_outlined,
+        ),
+      ],
+      selectedIndex: 0,
+      onItemSelected: (index) {},
     );
   }
 
@@ -31,6 +64,7 @@ class Home extends StatelessWidget {
             _title(context),
             _searchField(context),
             _categoriesList(context),
+            _products(context)
           ],
         ),
       ),
@@ -131,6 +165,7 @@ class Home extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemCount: brands.length,
         itemBuilder: (context, index) {
+          print(index);
           Brand brand = brands[index];
           print(index);
           return Container(
@@ -141,6 +176,31 @@ class Home extends StatelessWidget {
             ),
           );
         },
+      ),
+    );
+  }
+
+  Widget _products(BuildContext context) {
+    return Expanded(
+      child: Container(
+        child: GridView.builder(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: .75,
+          ),
+          itemCount: products.length,
+          itemBuilder: (context, index) {
+            Product product = products[index];
+            return ProductCard(
+              product: product,
+              margin: EdgeInsets.symmetric(
+                horizontal: MediaQuery.sizeOf(context).width * 0.02,
+                vertical: MediaQuery.sizeOf(context).width * 0.02,
+              ),
+              onTop: () {},
+            );
+          },
+        ),
       ),
     );
   }
