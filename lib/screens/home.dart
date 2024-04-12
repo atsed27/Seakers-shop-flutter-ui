@@ -7,6 +7,7 @@ import 'package:uiler/Widget/product_card.dart';
 import 'package:uiler/data.dart';
 import 'package:uiler/models/brand.dart';
 import 'package:uiler/models/product.dart';
+import 'package:uiler/screens/productDetail.dart';
 import 'package:water_drop_nav_bar/water_drop_nav_bar.dart';
 
 class Home extends StatelessWidget {
@@ -197,7 +198,11 @@ class Home extends StatelessWidget {
                 horizontal: MediaQuery.sizeOf(context).width * 0.02,
                 vertical: MediaQuery.sizeOf(context).width * 0.02,
               ),
-              onTop: () {},
+              onTop: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return ProductDetail(product: product);
+                }));
+              },
             );
           },
         ),
